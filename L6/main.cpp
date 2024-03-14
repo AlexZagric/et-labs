@@ -24,6 +24,8 @@ struct showColor
       return "Blue";
     case Green:
       return "Green";
+    default:                    ///< 1. Создаем секцию default
+      return "Color unset";     ///<
     }
   }
 
