@@ -35,6 +35,37 @@ struct showColor
   }
 };
 
+struct dynArr           ///< 3. Создаем структуру dynArr
+{                       ///<
+  showColor *array;     ///< Указатель на динамический массив
+  const myint size;     ///< Храним размер массива
+
+  dynArr(const myint size):              ///< Конструктор получающий в качестве
+    size(size)                           ///< параметра размер массива
+  {                                      ///<
+    array = new showColor[size];         ///< Выделение памяти под массив
+    for (myint i = 0; i < size; i++)     ///< Заполнение массива случайными
+    {                                    ///< значениями в цикле
+      int r = (rand() % 3);              ///<
+      array[i].clr = (Color)r;           ///<
+    }                                    ///<
+  }                                      ///<
+
+  ~dynArr()             ///< Деструктор вызываемый при завершении
+  {                     ///< программы или при вызове оператора delete
+    delete[] array;     ///<
+  }                     ///<
+
+  void print()                           ///< Метод вывода массива
+  {                                      ///< в поток cout
+    for (myint i = 0; i < size; i++)     ///<
+    {                                    ///<
+      std::cout << "array[" << i << "].clr = " << array[i].clr << "; array[" << i     ///<
+                << "].getName() = " << array[i].getName() << std::endl;               ///<
+    }                                                                                 ///<
+  }                                                                                   ///<
+};                                                                                    ///<
+
 void staticColor()
 {
   std::cout << "Static variables:" << std::endl;
@@ -82,6 +113,9 @@ int main()
 {
   staticColor();
   dynamicColor();
+
+  dynArr a{8};     ///< Иницилизация переменной a типа dynArr
+  a.print();       ///< Вывод всех значений
   system("pause");
   return 0;
 }
